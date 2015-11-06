@@ -1,0 +1,33 @@
+def main():
+    cipher_input = input('Please enter a string to be ciphered: ')          #user inputs the string going to be ciphered
+    shift_amt = input('Please enter a shift amount between 0 and 25: ')     #user inputs the amount they want the string to be shifted
+    cipher_list = list(cipher_input)                                        #creates a list out of the characters in the string
+    cipher_ord_list = []                                                    #creates an empty list for the ord of each character
+    cipher_after_shift = []                                                 #creates an empty list for the string after the letters have been shifted
+
+    while shift_amt.isdigit() is False:                     
+        shift_amt = input('Please enter a shift amount between 0 and 25: ') #makes it so you have to input a number otherwise it loops back to asking the amount you want shifted
+
+    for character in cipher_list:                           #creates a loop for each character in the cipher_list
+        if ord(character) > 96 and ord(character) < 123:    #converts each character to an ascii value and ensures only those that are lower case letters
+            new_ord = ord(character) + int(shift_amt)       #shifts the ascii value of each character by the amount the user inputted earlier
+            if new_ord >= 123:                              #if the ascii value goes past the lower case letter value, this loops it back to the beginning of the alphabet
+                new_ord = new_ord - 26
+                cipher_ord_list.append(new_ord)             #adds the shifted ascii value into a new list
+
+        elif ord(character) > 64 and ord(character) < 91:   #does the same thing as the if command above except with capital letters
+            new_ord = ord(character) + int(shift_amt)
+            if new_ord >= 91:
+                new_ord = new_ord - 26
+                cipher_ord_list.append(new_ord)
+
+        else:
+            cipher_ord_list.append(ord(character))          #if the character is not a letter, it will simply add unchange ascii value into the new list
+
+    for char_ord in cipher_ord_list:
+        cipher_after_shift.append(chr(char_ord))            #converts the ascii numbers in the list back to the characters that correspond to each ascii value    
+
+    s = ''
+    cipher_after_shift = s.join(cipher_after_shift)         #joins the seperate characters into one string
+    print(cipher_after_shift)
+main()
